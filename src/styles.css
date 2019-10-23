@@ -10,3 +10,16 @@ body {
     background: #fafafa;
     color: #333;
 }
+
+img{
+    position: absolute;
+    top: 20px;
+    opacity: .3;
+    z-index: 0;
+
+}
+
+.heatmap{
+    position: absolute;
+    z-index: 1;
+}
