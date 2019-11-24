@@ -22,4 +22,13 @@ export class PositionService {
                 throw new Error("Unable to add position")
             });
     }
+
+    reset() {
+        return ConnectionFactory.getConnection()
+            .then(connection => new PositionDao(connection))
+            .then(dao => dao.removeAll())
+            .catch(erro => {
+                throw new Error("Unable to add position")
+            });
+    }
 }

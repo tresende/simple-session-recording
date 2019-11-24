@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import bg from './assets/bg.png';
 import SRH from './srh'
+import Heatmap from './components/Heatmap';
 
 import './styles.css';
 
@@ -8,16 +9,21 @@ export default class Main extends Component {
 
   constructor(props) {
     super(props);
-    this.srh = new SRH({ interval: 2000 });
+    this.srh = new SRH({ interval: 250 });
+    this.simpleHeatRef = React.createRef();
+    this.state = {
+      data: []
+    }
   }
 
   componentDidMount() {
-    console.log(this.srh.start());
-
+    this.srh.start();
     setInterval(async () => {
       const data = await this.srh.getHeatMap();
-      console.log(data);
-    }, 5000);
+      this.setState({
+        data
+      })
+    }, 1000);
   }
 
   renderBlocks() {
@@ -35,7 +41,16 @@ export default class Main extends Component {
           {this.renderBlocks()}
         </div>
         <img src={bg} alt="bg" />
-      </div>
+        <Heatmap
+          id={this.state.data.length}
+          ref={this.simpleHeatRef}
+          width={window.screen.width}
+          height={window.screen.height}
+          data={this.state.data}
+          maxOccurances={20}
+          blur={100}
+          radius={120} />
+      </div >
     )
   }
 }
