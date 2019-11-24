@@ -13,12 +13,27 @@ export default class Main extends Component {
 
   componentDidMount() {
     console.log(this.srh.start());
+
+    setInterval(async () => {
+      const data = await this.srh.getHeatMap();
+      console.log(data);
+    }, 5000);
   }
 
+  renderBlocks() {
+    let blocks = [];
+    for (let index = 0; index < 500; index++) {
+      blocks.push(<div key={index} className="block" />);
+    }
+    return blocks;
+  }
 
   render() {
     return (
       <div>
+        <div className="block-container">
+          {this.renderBlocks()}
+        </div>
         <img src={bg} alt="bg" />
       </div>
     )

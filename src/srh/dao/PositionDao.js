@@ -20,8 +20,8 @@ export class PositionDao {
             cursor.onsuccess = e => {
                 let current = e.target.result;
                 if (current) {
-                    let item = current.value;
-                    positions.push(new Position(item._x, item._y));
+                    const item = current.value;
+                    positions.push(new Position(item.x, item.y));
                     current.continue();
                 } else {
                     resolve(positions);
@@ -36,6 +36,7 @@ export class PositionDao {
     }
 
     add(position) {
+        if (!position.x || !position.y) return false;
         return new Promise((resolve, reject) => {
 
             let request = this._connection

@@ -2,6 +2,7 @@ import { PositionService } from './services/PositionService';
 
 const DEFAULT_SETTINGS = {
     interval: 250,
+    fenceSize: 40
 }
 
 class SRH {
@@ -17,7 +18,21 @@ class SRH {
     }
 
     start() {
-        setInterval(() => this._service.add({ x: window.mouseX, y: window.mouseY }), this.settings.interval);
+        setInterval(() => {
+            const x = Math.floor(window.mouseX / this.settings.fenceSize);
+            const y = Math.floor(window.mouseY / this.settings.fenceSize);
+            this._service.add({ x, y })
+        }, this.settings.interval);
+    }
+
+    async getHeatMap() {
+        let ocurrences = [];
+        let data = await this._service.getHeatMap();
+        data.forEach(element => {
+
+        });
+        //fence
+        console.table(data);
     }
 }
 

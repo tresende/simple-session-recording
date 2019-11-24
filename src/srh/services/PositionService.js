@@ -12,4 +12,14 @@ export class PositionService {
                 throw new Error("Unable to add position")
             });
     }
+
+    async getHeatMap() {
+        return await ConnectionFactory.getConnection()
+            .then(connection => new PositionDao(connection))
+            .then(dao => dao.getAll())
+            .then(data => data)
+            .catch(erro => {
+                throw new Error("Unable to add position")
+            });
+    }
 }
