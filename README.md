@@ -1,4 +1,4 @@
-# session-recording-with-heatmap
+# Session Recording Heatmap (SRH)
 
 Simple and fast session recorder with indexeddb, vanilla js and heatmap.
 
