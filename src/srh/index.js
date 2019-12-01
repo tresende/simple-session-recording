@@ -26,22 +26,33 @@ class SRH {
         }, this.settings.interval);
     }
 
-    async getHeatMap() {
+    getHeatMap() {
         const ocurrences = [];
-        const data = await this._service.getHeatMap();
-        data.forEach(element => {
-            let unique = ocurrences.find(item => element.x == item[0] && element[1] == item.y);
-            if (unique == null) {
-                ocurrences.push([
-                    element.x * this.settings.fenceSize,
-                    element.y * this.settings.fenceSize,
-                    1
-                ]);
-            } else {
-                unique[2] += 1;
+
+        return new Promise((resolve, reject) => {
+            try {
+                this._service.getHeatMap().then(data => {
+                    data.forEach(element => {
+                        let unique = ocurrences.find(item => element.x == item[0] && element[1] == item.y);
+                        if (unique == null) {
+                            ocurrences.push([
+                                element.x * this.settings.fenceSize,
+                                element.y * this.settings.fenceSize,
+                                1
+                            ]);
+                        } else {
+                            unique[2] += 1;
+                        }
+                    });
+                    resolve(ocurrences);
+                });
+            } catch (e) {
+                reject(e);
             }
-        });
-        return ocurrences;
+
+        })
+
+
     }
 }
 

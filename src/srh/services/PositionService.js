@@ -13,8 +13,8 @@ export class PositionService {
             });
     }
 
-    async getHeatMap() {
-        return await ConnectionFactory.getConnection()
+    getHeatMap() {
+        return ConnectionFactory.getConnection()
             .then(connection => new PositionDao(connection))
             .then(dao => dao.getAll())
             .then(data => data)

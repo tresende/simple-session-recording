@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import bg from './assets/bg.png';
-import SRH from './srh'
-import Heatmap from './components/Heatmap';
 
-import './styles.css';
+import { Heatmap, SRH } from 'session-recording-heatmap'
 
-export default class Main extends Component {
+import './index.css';
+
+export default class App extends Component {
 
   constructor(props) {
     super(props);
@@ -18,11 +18,12 @@ export default class Main extends Component {
 
   componentDidMount() {
     this.srh.start();
-    setInterval(async () => {
-      const data = await this.srh.getHeatMap();
-      this.setState({
-        data
-      })
+    setInterval(() => {
+      this.srh.getHeatMap().then(data => {
+        this.setState({
+          data
+        })
+      });
     }, 1000);
   }
 

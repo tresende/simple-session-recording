@@ -1,11 +1,31 @@
-# Session Recording Heatmap (SRH)
+# session-recording-heatmap
 
-Simple and fast session recorder with indexeddb, vanilla js and heatmap.
+> Session Recording Heatmap
 
-- [x] Background collect data
-- [x] Store session data in indexed db
-- [ ] Background sync with service worker
-- [x] Show user data in admin screen
-- [ ] Npm/Github Package(for now the code is [here](https://github.com/tresende/session-recording-with-heatmap/tree/master/src/srh))
+[![NPM](https://img.shields.io/npm/v/session-recording-heatmap.svg)](https://www.npmjs.com/package/session-recording-heatmap) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-<img src ="https://raw.githubusercontent.com/tresende/session-recording-with-heatmap/master/bg.png">
+## Install
+
+```bash
+npm install --save session-recording-heatmap
+```
+
+## Usage
+
+```jsx
+import React, { Component } from 'react'
+
+import MyComponent from 'session-recording-heatmap'
+
+class Example extends Component {
+  render () {
+    return (
+      <MyComponent />
+    )
+  }
+}
+```
+
+## License
+
+MIT © [tresende](https://github.com/tresende)

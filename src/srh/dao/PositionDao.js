@@ -1,4 +1,4 @@
-import Position from './../models/Position';
+import Position from '../models/Position';
 
 export class PositionDao {
 
