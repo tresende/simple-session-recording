@@ -15,12 +15,12 @@ npm install --save session-recording-heatmap
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'session-recording-heatmap'
+import {SRH, Heatmap} from 'session-recording-heatmap'
 
 class Example extends Component {
   render () {
     return (
-      <MyComponent />
+      <Heatmap />
     )
   }
 }
