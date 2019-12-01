@@ -1,0 +1,19 @@
+{
+  "name": "session-recording-heatmap",
+  "version": "1.0.0",
+  "description": "session-recording-heatmap",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tresende/session-recording-with-heatmap.git"
+  },
+  "author": "Thiago Resende",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tresende/session-recording-with-heatmap/issues"
+  },
+  "homepage": "https://github.com/tresende/session-recording-with-heatmap#readme"
+}
