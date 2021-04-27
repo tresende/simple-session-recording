@@ -48,6 +48,6 @@
     "webpack": "^5.33.2",
     "webpack-cli": "^4.6.0",
     "webpack-dev-server": "^3.2.1",
-    "@types/jest": "^26.0.22"
+    "@types/jest": "^26.0.23"
   }
 }
