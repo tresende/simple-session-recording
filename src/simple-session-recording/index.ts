@@ -1,29 +1,59 @@
 import './index.css'
-export type SessionRecordingProps ={
-  interval?: number,
-  fenceSize?: number,
-  debugView?: boolean,
+
+export type SessionRecordingProps = {
+  interval?: number
+  fenceSize?: number
+  debugView?: boolean
 }
 
-const add = (x:number, y:number) => {
-  console.log(x, y)
+type SessionRecordingData = {
+  interval?: number
+  fenceSize?: number
+  data?: number[]
 }
 
-const addDebugGrid = (fenceSize: number) => {
-  const bodyHtml = document.body.innerHTML
-  document.body.innerHTML = `<div style="background-size:${fenceSize}px ${fenceSize}px;" class="session-container"></div>${bodyHtml}`
+function createBlockElement(fenceSize: number, text: number) {
+  const blockElement = document.createElement('div')
+  blockElement.setAttribute('style', `height:${fenceSize}px`)
+  blockElement.setAttribute('class', 'session-container-block')
+  blockElement.innerHTML += text
+  return blockElement
 }
+
+const addDebugGrid = (fenceSize: number, debugView: boolean, add: (id: number) => void) => {
+  document.body.innerHTML += `<div class="session-container" style="grid-template-columns: repeat(auto-fill, minmax(${fenceSize}px, 1fr));"></div>`
+  const container = document.querySelector('.session-container')
+  let id = 0
+  while (window.outerHeight > container.clientHeight) {
+    id++
+    const blockElement = createBlockElement(fenceSize, id)
+    const data = id
+    blockElement.addEventListener('mouseenter', () => add(data))
+    container.appendChild(blockElement)
+  }
+}
+
+const initStore = (callback: () => void) => setInterval(() => callback(), 5000)
+
+const storeData = (actualData: number[] = [], fenceSize: number, interval: number) => {
+  const sessionData: SessionRecordingData = JSON.parse(localStorage.getItem('SESSION_DATA')) ?? {}
+  const localStorageData: SessionRecordingData = { interval, fenceSize, data: sessionData.data }
+  localStorageData.data = (localStorageData.data || []).concat(actualData)
+  localStorage.setItem('SESSION_DATA', JSON.stringify(localStorageData))
+}
+
+let lastId: any = 0
 
 const startSessionRecording = ({ interval = 250, fenceSize = 100, debugView = false }: SessionRecordingProps) => {
-  let x = 0
-  let y = 0
-  document.onmousemove = (e: MouseEvent) => {
-    x = e.clientX
-    y = e.clientY
+  const actualData: number[] = []
+  initStore(() => storeData(actualData, interval, fenceSize))
+
+  const add = (id: number) => {
+    clearTimeout(lastId)
+    lastId = setTimeout(() => actualData.push(id), interval)
   }
 
-  if (debugView) addDebugGrid(fenceSize)
-  setInterval(() => add(x / fenceSize, y / fenceSize), interval)
+  addDebugGrid(fenceSize, debugView, add)
 }
 
 export { startSessionRecording }
